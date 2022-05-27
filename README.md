@@ -25,3 +25,7 @@ pip install -r requirements.txt
 ```bash
 python bot.py
 ```
+5. Set the webhook (change <YOUR-BOT-API-TOKEN> to your bot token):
+```bash
+curl -X POST -d @data.json -H "Content-Type: application/json" "https://api.telegram.org/bot<YOUR-BOT-API-TOKEN>/setWebhook
+```
