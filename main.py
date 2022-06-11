@@ -1,22 +1,33 @@
 import logging
-import asyncio
-import aiohttp
 from aiohttp import web
+import asyncio
 
 from settings import WEBAPP_HOST, WEBAPP_PORT
-from bot import message_handler
 from client import client_session
+from db import pg_context
+
+from bot import message_handler
+from api import leaderboard
+
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
 
-async def init_app(loop):
+async def init_app(*args):
     app = web.Application()
+
+    # setup routes
     app.add_routes([web.static('/static', './static'),
-        web.post('/webhook', message_handler)])
-    app['client'] = aiohttp.ClientSession()
+        web.post('/webhook', message_handler),
+        web.get('/leaderboard', leaderboard)])
+
+    # setup client session
     app.cleanup_ctx.append(client_session)
+
+    # setup db
+    app.cleanup_ctx.append(pg_context)
+
     return app
 
 
