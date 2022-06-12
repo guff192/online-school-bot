@@ -1,14 +1,9 @@
 from sqlalchemy import create_engine, MetaData
 from db import wallets, courses, tasks, students, students_courses, students_tasks
-from settings import DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT
+from settings import get_dsn
 
-DSN = "postgresql://{user}:{password}@{host}:{port}/{database}"
 
-ADMIN_DB_URL = DSN.format(
-    user=DB_USER, password=DB_PASSWORD, database=DB_NAME,
-    host=DB_HOST, port=DB_PORT
-)
-
+ADMIN_DB_URL = get_dsn()
 admin_engine = create_engine(ADMIN_DB_URL)
 
 
