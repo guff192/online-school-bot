@@ -12,5 +12,5 @@ COPY . .
 
 WORKDIR /online-school-bot/app
 EXPOSE 5000
-CMD [ "gunicorn", "main:init_app" , "--bind", "0.0.0.0:5000", "--worker-class", "aiohttp.GunicornWebWorker" ]
+CMD gunicorn main:init_app  --bind 0.0.0.0:$PORT --worker-class aiohttp.GunicornWebWorker
 
