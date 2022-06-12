@@ -1,8 +1,7 @@
 from aiopg.sa import create_engine
 import sqlalchemy as sa
 
-from settings import DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT
-
+from settings import get_dsn
 
 # tables metadata object
 metadata_obj = sa.MetaData()
@@ -40,13 +39,8 @@ students_tasks = sa.Table('students_tasks', metadata_obj,
 
 
 async def pg_context(app):
-    engine = await create_engine(
-        database=DB_NAME,
-        user=DB_USER,
-        password=DB_PASSWORD,
-        host=DB_HOST,
-        port=DB_PORT,
-    )
+    dsn = get_dsn()
+    engine = await create_engine(dsn=dsn)
     app['db'] = engine
 
     yield
