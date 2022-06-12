@@ -10,5 +10,10 @@ async def leaderboard(request):
 
         users_response = [dict(user) for user in users_data]
 
-        return web.Response(text=simplejson.dumps(users_response), status=200, content_type='application/json')
+        headers = {'Access-Control-Allow-Origin': '*'}
+        return web.Response(
+                text=simplejson.dumps(users_response),
+                status=200,
+                content_type='application/json', 
+                headers=headers)
 
