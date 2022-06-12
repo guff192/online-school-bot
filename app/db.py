@@ -52,7 +52,8 @@ async def pg_context(app):
 async def get_students_list(conn):
     join = students.join(wallets, students.c.wallet_id == wallets.c.id)
     query = sa.select(
-            [students.c.username.label('username'),
+            [students.c.id.label('id'),
+                students.c.username.label('username'),
                 students.c.email.label('email'),
                 wallets.c.balance.label('wallet_balance')],
             use_labels=True
