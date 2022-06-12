@@ -13,5 +13,6 @@ multidict==6.0.2
 psycopg2-binary==2.9.3
 python-dotenv==0.20.0
 pytz==2022.1
+simplejson==3.17.6
 SQLAlchemy==1.4.37
 yarl==1.7.2

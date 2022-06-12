@@ -1,15 +1,14 @@
 from aiohttp import web
-import json
+import simplejson
 
-import db
+from db import get_students_list
 
 
 async def leaderboard(request):
     async with request.app['db'].acquire() as conn:
-        cursor = await conn.execute(db.students.select())
-        users_data = await cursor.fetchall()
+        users_data = await get_students_list(conn)
 
-        users_response = [dict(user.items()) for user in users_data]
+        users_response = [dict(user) for user in users_data]
 
-        return web.Response(text=json.dumps(users_response), status=200, content_type='application/json')
+        return web.Response(text=simplejson.dumps(users_response), status=200, content_type='application/json')
 

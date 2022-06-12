@@ -48,3 +48,17 @@ async def pg_context(app):
     app['db'].close()
     await app['db'].wait_closed()
 
+
+async def get_students_list(conn):
+    join = students.join(wallets, students.c.wallet_id == wallets.c.id)
+    query = sa.select(
+            [students.c.username.label('username'),
+                students.c.email.label('email'),
+                wallets.c.balance.label('wallet_balance')],
+            use_labels=True
+            ).select_from(join)
+    cursor = await conn.execute(query)
+    rows = await cursor.fetchall()
+
+    return rows
+
