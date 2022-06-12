@@ -29,10 +29,7 @@ def get_dsn():
         DSN = os.environ.get('DATABASE_URL')
         assert DSN is not None
     except:
-        print('using .env file')
-        print(f'{DB_HOST=}')
         DSN = f'postgres://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
-        print(DSN)
 
     return DSN
 
